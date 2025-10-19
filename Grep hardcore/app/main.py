@@ -1,17 +1,15 @@
 import sys
-
+#for /d
 def handle_digits(string, index):
     return string[index].isdigit()
-
-
+#for \w    
 def handle_word_characters(string, index):
     if string[index].isalnum():
         return True
     elif string[index] == "_":
         return True
     return False
-
-
+#for those [] and [^] thingy(still doesn't account for [[] not being error and [] being)
 def handle_character_groups(string, index, group):
     if group[1] == "^":
         if string[index] in group[2:-1]:
@@ -20,15 +18,13 @@ def handle_character_groups(string, index, group):
     else:
         if string[index] in group[1:-1]:
             return True
-        return False
-    
-    
+        return False    
+#for just plain simple text
 def handle_literal_characters(string, index, character):
     if string[index] == character:
         return True
     return False
-
-
+#boss, it's + guy
 def handle_oneormore(string, index, token):
     repeat_times = 0
     while string[index] == token:
@@ -37,8 +33,7 @@ def handle_oneormore(string, index, token):
             return repeat_times
         index += 1
     return repeat_times
-
-
+#making the string less messy
 def convert_to_commands(unsorted):
     sorted_commands = []
     #so if howto is \d a[abc][^rsa]\ws then this is ['\d',' ', 'a', '[abc]', ...]u get it
@@ -66,8 +61,7 @@ def convert_to_commands(unsorted):
         else:
             sorted_commands.append(unsorted[i_alt])
     return sorted_commands
-
-
+#yep main code, very inefficient
 def handleInput(theinput, howto):
     commands = convert_to_commands(howto)
     print(commands)
@@ -138,14 +132,12 @@ def handleInput(theinput, howto):
         test_index = first_index
     print("congrats u made ur way to success")
     sys.exit(0)
-
-    
+#joke, this is just for codecrafters
 def main():
     '''if sys.argv[1] != "-E":
         print("Expected first argument to be '-E'")
-        sys.exit(1)
-    handleInput(sys.stdin.read(), sys.argv[2])'''
-    handleInput("act", "ca+t")
+        sys.exit(1)'''
+    handleInput(input("expression"), input("what to match")
         
 if __name__ == "__main__":
     main()
